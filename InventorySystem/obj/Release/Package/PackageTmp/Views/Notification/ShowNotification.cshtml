@@ -1,0 +1,116 @@
+﻿@model IEnumerable<InventorySystem.Models.StockIn>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="info">
+                    @if (Session["Name"] != null)
+                    {
+                        <a href="#" class="d-block">@Session["Name"]</a>
+                    }
+                </div>
+                <br />
+                <a href='@Url.Action("LogOut","Accounts")' class="nav-item nav-link">LogOut</a>
+            </div>
+
+            @if (Session["roles"].ToString() == "SuperAdmin")
+            {
+                <div class="row pt-3">
+                    <a href='@Url.Action("SuperAdminDashBoard", "SuperAdmin")'>SuperAdmin DashBoard</a>
+                </div>
+            }
+
+             @if (Session["roles"].ToString() == "Admin")
+            {
+                <div class="row pt-3">
+                    <a href='@Url.Action("AdminDashBoard", "Admin")'>Admin DashBoard</a>
+                </div>
+            }
+
+            <a href='@Url.Action("StocKIn","Stock")' class="nav-item nav-link">Stock In</a>
+            <br />
+            <a href='@Url.Action("ShowCart","Stock")' class="nav-item nav-link">Cart</a>
+        </div>
+
+
+
+
+
+
+        <!-- Available Stock -->
+        <h1>Available Stock</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+   
+   
+        <!-- Do not place the <select> inside the loop -->
+        <th scope="col">
+
+            Name
+
+        </th>
+    
+    <th scope="col">Quantity</th>
+  
+    <th scope="col">Expiry Date</th>
+
+</tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                
+                                <tr>
+                                    
+                                    <td>@item.Name</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.ExpiryDate</td>
+                                   
+                                </tr>
+                            
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        @TempData["ErrorMessage"]
+
+        <!-- Sold Stock -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-inline-block">
+            <b></b>
+        </div>
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+</body>
+
+</html>

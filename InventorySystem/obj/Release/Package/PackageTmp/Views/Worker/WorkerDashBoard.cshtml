@@ -1,0 +1,17 @@
+﻿  @if (Session["Name"] != null)
+               {
+                       <a href="#" class="d-block"><h1>@Session["Name"]</h1>
+                       </a>
+               }
+
+
+ <a href='@Url.Action("StockIn","Stock")' class="nav-item nav-link">StockIn</a>
+
+@*<br />
+
+ <a href='@Url.Action("UsersList","UserManagement")' class="nav-item nav-link">User List</a>*@
+
+<br />
+
+ <a href='@Url.Action("LogOut","Accounts")' class="nav-item nav-link">LogOut</a>
+

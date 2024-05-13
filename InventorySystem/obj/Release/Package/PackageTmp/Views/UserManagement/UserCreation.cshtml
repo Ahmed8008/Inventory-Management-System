@@ -1,0 +1,361 @@
+﻿@model IEnumerable<InventorySystem.Models.StockIn>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Inventory Management System</title>
+      
+      <!-- Favicon -->
+      <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+      
+      <link rel="stylesheet" href=@Url.Content("/Content/assets/css/backend-plugin.min.css")>
+      <link rel="stylesheet" href=@Url.Content("/Content/assets/css/backend.css?v=1.0.0")>
+
+       <!-- Include necessary CSS libraries -->
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Include Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+      <style>
+          .modal-content {
+    background-color: black;
+    color:white;
+   
+
+}
+
+
+
+
+          .modal-title{
+              color:white
+          }
+
+
+      </style>
+  </head>
+  <body class="  ">
+    <!-- loader Start -->
+   
+    <!-- loader END -->
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+      <div class="iq-sidebar  sidebar-default  ">
+          <div class="iq-sidebar-logo d-flex align-items-end justify-content-between">
+               <a  class="header-logo">
+                  <span>Inventory Management System</span>            
+              </a>
+              <div class="side-menu-bt-sidebar-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="text-light wrapper-menu" width="30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                  </div>
+          </div>
+          <div class="data-scrollbar" data-scroll="1">
+              <nav class="iq-sidebar-menu">
+                     @if (Session["roles"] == null)
+                     {
+        
+        <p>Your session has been expired please..<a href="@Url.Action("SignIn", "Accounts")">SignIn</a></p>
+                     }
+                     else
+                     {
+                  <ul id="iq-sidebar-toggle" class="side-menu">
+                      <li class=" sidebar-layout">
+                          
+                      </li>
+                    
+
+                      <li class="px-3 pt-3 pb-2">
+
+                             
+                        
+
+                        
+                            @if (Session["roles"].ToString() == "SuperAdmin")
+                            {
+                          <span class="text-uppercase small font-weight-bold" style="color:white">&nbsp&nbsp&nbsp&nbsp&nbsp Super Admin Dashboard</span>
+                                                   <li class=" sidebar-layout">
+                          <a href='@Url.Action("UserCreation", "UserManagement")' class="svg-icon">
+                              <i class="">
+                                 
+                              </i><span class="ml-2" style="color:white">User Creation</span>
+                          </a>
+                      </li>
+                   <li class=" sidebar-layout">
+                          <a href='@Url.Action("UsersList", "UserManagement")' >
+                              <i class="">
+                                  
+                              </i><span class="ml-2" style="color:white">Created Users</span>
+                          </a>
+                      </li>
+                     
+                        
+                      <li class=" sidebar-layout">
+                          <a href='@Url.Action("StockList", "Stock")' class="svg-icon">
+                              <i class="">
+                              </i><span class="ml-2" style="color:white">StockList</span>
+                          </a>
+                      </li>
+
+                      <li class=" sidebar-layout">
+                          <a href='@Url.Action("SoldList", "Stock")' class="svg-icon">
+                              <i class="">
+                              </i><span class="ml-2" style="color:white">SoldList</span>
+                          </a>
+                      </li>
+
+                   
+                      <li class=" sidebar-layout">
+                          <a href='@Url.Action("DateInquiry", "Stock")' class="svg-icon">
+                              <i class="">
+                              </i><span class="ml-2" style="color:white">Date Inquiry</span>
+                          </a>
+                      </li>
+
+                            
+                            }
+
+                             @if (Session["roles"].ToString() == "Admin")
+                             {
+                          <span class="text-uppercase small font-weight-bold" style="color:white">&nbsp&nbsp&nbsp&nbsp&nbsp Admin Dashboard</span>
+                             }
+         </li>
+                         
+                      
+                  </ul>
+                     }
+              </nav>
+              <div class="pt-5 pb-5"></div>
+          </div>
+      </div>
+       <div class="iq-top-navbar">
+          <div class="iq-navbar-custom">
+              <nav class="navbar navbar-expand-lg navbar-light p-0">
+                  <div class="side-menu-bt-sidebar">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary wrapper-menu" width="30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                      </svg>
+                  </div>
+                  <div class="d-flex align-items-center">
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"  aria-label="Toggle navigation">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary" width="30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                          </svg>
+                      </button>
+                      <div>
+                          <ul class="navbar-nav ml-auto navbar-list align-items-center">
+
+                              <li>
+                                  <a href='@Url.Action("ShowCart", "Stock")'>
+                                 <i class="fa fa-shopping-cart" style="font-size:24px"></i>
+                                      </a>
+                              </li>
+                              <li class="nav-item nav-icon dropdown"> 
+                              <a id="bellIcon" class="search-toggle dropdown-toggle text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+        <span id="notificationCount" class="bg-primary"></span>
+    </a>
+
+    <!-- Notification Modal -->
+<div class="modal fade" role="dialog" id="notificationModal" aria-labelledby="notification-dropdown">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Notifications</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="notificationList"></ul>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+    <!-- Include jQuery -->
+   
+                             
+                                  
+                                   </li>                        
+                            
+                              
+
+    <!-- Add your custom JavaScript -->
+<script>
+    $(document).ready(function () {
+        // Function to load notifications
+        function loadNotifications() {
+            // AJAX request to load notifications
+            $.get('@Url.Action("ShowNotification", "Notification")', function (data) {
+                // Clear previous notifications
+                $('#notificationList').empty();
+
+                // Filter notifications with non-zero quantity
+                var filteredNotifications = data.filter(function (notification) {
+                    return notification.Quantity > 0;
+                });
+
+                // Append new notifications
+                $.each(filteredNotifications, function (index, notification) {
+                    $('#notificationList').append('<li>' + 'Product Name:' + '  ' + notification.Name + '  ' + 'Quantity:' + '  ' + notification.Quantity + '  ' + 'Expiry Date:' + notification.ExpiryDate + '</li>' + '\n');
+                });
+
+                // Update the notification count
+                $('#notificationCount').text(filteredNotifications.length);
+                // Remove any additional styling
+                $('#notificationCount').removeAttr('class');
+            });
+        }
+
+        // Function to show notifications modal
+        function showNotificationModal() {
+            // Show the modal
+            $('#notificationModal').modal('show');
+        }
+
+        // Load notifications and show modal when bell icon is clicked
+        $('#bellIcon').click(function () {
+            loadNotifications();
+            showNotificationModal();
+        });
+
+        // Show notification count on page load
+        loadNotifications();
+
+        // Remove notification count after a week
+        setTimeout(function () {
+            $('#notificationCount').text('');
+        }, 7 * 24 * 60 * 60 * 1000);
+
+        // Close the modal when the user clicks outside of it
+        $(document).on('click', function (e) {
+            if ($(e.target).closest(".modal").length === 0) {
+                $(".modal").modal('hide');
+            }
+        });
+    });
+</script>
+                           
+                              <li class="nav-item nav-icon dropdown">
+
+                                    @if (Session["Name"] != null)
+                                    {
+                    
+                                  <a href="#" class="nav-item nav-icon dropdown-toggle pr-0 search-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                      <span class="mb-0 ml-2 user-name">@Session["Name"]</span>
+                                  </a>
+                                        
+                                    }
+                                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                     
+                                      <li class="dropdown-item  d-flex svg-icon border-top">
+                                          <svg class="svg-icon mr-0 text-secondary" id="h-05-p" width="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                          </svg>
+                                          <a href='@Url.Action("LogOut", "Accounts")'>Logout</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>                     
+                      </div> 
+                  </div>
+              </nav>
+          </div>
+      </div>
+      <div class="content-page">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-12">
+              
+            </div>
+            <div class="col-lg-12">
+               <div class="iq-edit-list-data">
+                  <div class="tab-content">
+                     <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
+                        <div class="card">
+                           <div class="card-header d-flex justify-content-between">
+                              <div class="header-title">
+                                 <h4 class="card-title">User Creation</h4>
+                              </div>
+                           </div>
+                           <div class="card-body">
+
+
+
+                              <form method="post">
+                                 @*<div class="form-group">
+                                    <label for="cpass">Name:</label>                                 
+                                    <input required type="text" name="Name" placeholder="EnterName" class="form-control" id="cpass" value="">
+                                 </div>*@
+                                   <div class="form-group">
+                                    <label for="npass">Name:</label>
+                                    <input required type="text" name="Name" placeholder="Enter Name" class="form-control" id="npass" value="">
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="npass">Email:</label>
+                                    <input required type="email" name="Email" placeholder="Enter Email" class="form-control" id="npass" value="">
+                                 </div>
+                                @* <div class="form-group">
+                                    <label for="vpass">Password:</label>
+                                    <input required type="Password" name="Password" placeholder="EnterPassword" class="form-control" id="vpass" value="">
+                                 </div>*@
+                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                  @ViewBag.Result
+                                  @ViewBag.ErrorMessage
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                    
+                
+                     
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+    </div>
+    <!-- Wrapper End-->
+     <!-- Backend Bundle JavaScript -->
+   <!-- Backend Bundle JavaScript -->
+    <script src=@Url.Content("/Content/assets/js/backend-bundle.min.js")></script>
+    <!-- Chart Custom JavaScript -->
+    <script src=@Url.Content("/Content/assets/js/customizer.js")></script>
+    
+    <script src=@Url.Content("/Content/assets/js/sidebar.js")></script>
+    
+    <!-- Flextree Javascript-->
+    <script src=@Url.Content("/Content/assets/js/flex-tree.min.js")></script>
+    <script src="../assets/js/tree.js"></script>
+    
+    <!-- Table Treeview JavaScript -->
+    <script src=@Url.Content("/Content/assets/js/table-treeview.js")></script>
+    
+    <!-- SweetAlert JavaScript -->
+    <script src=@Url.Content("/Content/assets/js/sweetalert.js")></script>
+    
+    <!-- Vectoe Map JavaScript -->
+    <script src=@Url.Content("/Content/assets/js/vector-map-custom.js")></script>
+    
+    <!-- Chart Custom JavaScript -->
+    <script src=@Url.Content("/Content/assets/js/chart-custom.js")></script>
+    <script src=@Url.Content("/Content/assets/js/charts/01.js")></script>
+    <script src=@Url.Content("/Content/assets/js/charts/02.js")></script>
+    
+    <!-- slider JavaScript -->
+    <script src=@Url.Content("/Content/assets/js/slider.js")></script>
+    
+    <!-- Emoji picker -->
+    <script src=@Url.Content("/Content/assets/vendor/emoji-picker-element/index.js") type="module"></script>
+    
+    
+    <!-- app JavaScript -->
+    <script src=@Url.Content("/Content/assets/js/app.js")></script>  </body>
+</html> 

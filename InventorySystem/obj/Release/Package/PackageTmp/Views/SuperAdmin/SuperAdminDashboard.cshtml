@@ -1,0 +1,26 @@
+﻿  @if (Session["Name"] != null)
+               {
+                       <a href="#" class="d-block"><h1>@Session["Name"]</h1>
+                       </a>
+               }
+
+
+ <a href='@Url.Action("UserCreation","UserManagement")' class="nav-item nav-link">UserCreation</a>
+
+<br />
+
+ <a href='@Url.Action("UsersList","UserManagement")' class="nav-item nav-link">User List</a>
+
+<br />
+
+<a href='@Url.Action("StockList","Stock")' class="nav-item nav-link">StockList</a>
+
+<br />
+
+ <a href='@Url.Action("ShowCart","Stock")' class="nav-item nav-link">Cart</a>
+<br />
+
+ <a href='@Url.Action("DateInquiry","Stock")' class="nav-item nav-link">Date Inquiry</a>
+
+ <a href='@Url.Action("LogOut","Accounts")' class="nav-item nav-link">LogOut</a>
+

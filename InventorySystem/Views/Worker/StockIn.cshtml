@@ -1,0 +1,118 @@
+﻿<html>
+<head>
+<title>
+    Admin DashBoard
+</title>
+             <link rel="stylesheet" href=@Url.Content("/Content/style.css") />
+
+
+</head>
+
+<body>
+	
+    <div class="div1">
+      <img src=@Url.Content("/Content/Imgs/imageedit_1_8338958513.png") class="img1" />
+        <h1 class="heading1">
+                              Inventory System
+        </h1>
+
+        <h2 class="heading2">
+             DashBoard
+        </h2>
+
+        <ul class="list">
+
+
+
+            @if (Session["roles"].ToString() == "Worker")
+            {
+            <li>
+              <a href='@Url.Action("DashBoard","Worker")'> <b> DashBoard </b> </a>
+            </li>
+            }
+
+              @if (Session["roles"].ToString() == "Admin")
+            {
+            <li>
+              <a href='@Url.Action("DashBoard","Admin")'> <b> DashBoard </b> </a>
+            </li>
+            }
+            <br />
+            @*<li>
+               <a href='@Url.Action("UsersManagementList","UserManagement")'  class="anchorList"> <b> Users Management </b> </a>
+            </li>*@
+            <br />
+          
+        </ul>
+
+        
+
+        <div class="div2">
+               @if (Session["Name"] != null)
+               {
+                   <p class="Name"> <b><i> @Session["Name"] </i></b></p>
+               }
+           
+          <a href='@Url.Action("LogOut","Accounts")'><p class="logout"> <b><i> <u>  Logout </u> </i></b></p> </a>
+        </div>
+
+
+        <div class="div3">
+           <div class="div3innerdiv">
+               <h1 class="heading3">
+                  <b> <i> <u> Stock In </u> </i></b> 
+               </h1>
+
+               <form method="post">
+
+                     <div>
+                            <input required type="number"  id="Quantity"  placeholder="Enter Quantity" name="Quantity" />
+                                   </div>
+
+                     <div>
+                            <input required type="text"  id="Name"  placeholder="Enter Name" name="Name" />
+                               </div>
+
+
+                    <div>
+                            <input required type="number"  id="Weight"  placeholder="Enter Weight " name="Weight" />
+                               </div>
+
+
+                   
+
+                          <div>
+                            <input required type="number"  id="RetailPrice"  placeholder="RetailPrice " name="RetailPrice" />
+                               </div>
+
+
+                    <div>
+                            <input required type="PurchasingPrice"  id="PurchasingPrice"  placeholder="PurchasingPrice" name="PurchasingPrice" />
+                               </div>
+
+                                       <div>
+<input type="date" id="ExpiryDate" name="ExpiryDate">                               </div>
+
+
+                     <div>
+
+                            <button class="CreateUserButton" type="submit" id="sendMessageButton">Stock In
+                                </button>
+                        </div>
+
+                   
+               </form>
+                   <b class="viewbag">  @ViewBag.Result </b>
+           </div>
+        </div>
+
+
+    </div>
+    	
+
+
+    
+
+</body>
+
+</html>
